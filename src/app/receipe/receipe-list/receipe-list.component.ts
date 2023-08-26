@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Receipe } from '../receipe.model';
 import { ReceipeListService } from '../receipe.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-receipe-list',
@@ -11,9 +12,9 @@ export class ReceipeListComponent implements OnInit {
   // @Output() selectedReceipeEvent = new EventEmitter<Receipe>();
   receipes: Receipe[] | undefined;
 
-  selectedReceipe: Receipe = new Receipe('','','')
+  selectedReceipe: Receipe = new Receipe('','','',[])
 
-  constructor(private receipeListService: ReceipeListService) {}
+  constructor(private receipeListService: ReceipeListService, private router:Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.receipes = this.receipeListService.getReceipes()
@@ -21,9 +22,15 @@ export class ReceipeListComponent implements OnInit {
   }
 
   sendReceipeData(receipeDetail:Receipe) {
+    this.selectedReceipe = receipeDetail;
     this.receipeListService.receipeEvent.emit(this.selectedReceipe);
-    // this.selectedReceipe = receipeDetail;
+    
     // this.selectedReceipeEvent.emit(this.selectedReceipe)
+  }
+
+
+  onNew() {
+    this.router.navigate(['new'], {relativeTo: this.route})
   }
 
 }

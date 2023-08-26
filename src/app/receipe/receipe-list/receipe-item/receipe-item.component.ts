@@ -7,17 +7,18 @@ import { Receipe } from '../../receipe.model';
   styleUrls: ['./receipe-item.component.css']
 })
 export class ReceipeItemComponent  implements OnInit{
-  @Input() receipe: Receipe  = new Receipe('','','')
+  @Input() receipe: Receipe = new Receipe('', '', '', [])
+  @Input() index: number =1;
   @Output() receipeEvent = new EventEmitter<Receipe>();
-  constructor() {}
+  
   ngOnInit() {
     
   }
 
-  clickData(receipe: any) {
-    this.receipeEvent.emit(receipe)
+  // clickData(receipe: any) {
+  //   this.receipeEvent.emit(receipe)
 
-  }
+  // }
 
 
 
